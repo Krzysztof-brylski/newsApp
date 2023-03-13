@@ -37,12 +37,12 @@ class TagController extends Controller
         try{
             (new TagService())->createTag($data);
             return back()->with([
-                'success'=>'resource created'
-            ]);
+                'message'=>'resource created'
+            ])->with(['error'=>false]);
         }catch (\Exception $exception){
             return back()->with([
-                'error'=>$exception->getMessage()
-            ]);
+                'message'=>$exception->getMessage()
+            ])->with(['true'=>false]);
         }
 
     }
@@ -76,12 +76,12 @@ class TagController extends Controller
         try{
             (new TagService())->updateTag($data,$tag);
             return back()->with([
-                'success'=>'resource updated'
-            ]);
+                'message'=>'resource updated'
+            ])->with(['error'=>false]);
         }catch (\Exception $exception){
             return back()->with([
-                'error'=>$exception->getMessage()
-            ]);
+                'message'=>$exception->getMessage()
+            ])->with(['error'=>true]);
         }
 
     }
@@ -94,12 +94,12 @@ class TagController extends Controller
         try{
             (new TagService())->deleteTag($tag);
             return back()->with([
-                'success'=>'resource deleted'
-            ]);
+                'message'=>'resource deleted'
+            ])->with(['error'=>false]);
         }catch (\Exception $exception){
             return back()->with([
-                'error'=>$exception->getMessage()
-            ]);
+                'message'=>$exception->getMessage()
+            ])->with(['error'=>true]);
         }
     }
 }

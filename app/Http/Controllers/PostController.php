@@ -40,14 +40,14 @@ class PostController extends Controller
         try{
             (new PostService())->createPost($data,Auth::user());
             return back()->with([
-                'success'=>'resource created'
-            ]);
+                'message'=>'resource created'
+            ])->with(['error'=>false]);
 
         }catch (\Exception $exception){
 
             return back()->with([
-                'error'=>$exception->getMessage()
-            ]);
+                'message'=>$exception->getMessage()
+            ])->with(['error'=>true]);
         }
     }
 
@@ -80,12 +80,12 @@ class PostController extends Controller
         try{
             (new PostService())->updatePost($data,$post);
             return back()->with([
-                'success'=>'resource updated'
-            ]);
+                'message'=>'resource updated'
+            ])->with(['error'=>false]);
         }catch (\Exception $exception){
             return back()->with([
-                'error'=>$exception->getMessage()
-            ]);
+                'message'=>$exception->getMessage()
+            ])->with(['error'=>false]);
         }
     }
 
@@ -97,12 +97,12 @@ class PostController extends Controller
         try{
             (new PostService())->deletePost($post);
             return back()->with([
-                'success'=>'resource deleted'
+                'message'=>'resource deleted'
             ]);
         }catch (\Exception $exception){
             return back()->with([
-                'error'=>$exception->getMessage()
-            ]);
+                'message'=>$exception->getMessage()
+            ])->with(['error'=>true]);
         }
     }
 }
