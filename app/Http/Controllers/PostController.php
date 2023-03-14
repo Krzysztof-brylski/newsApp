@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Services\PostService;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -28,7 +29,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('moderator/post/create');
+        return view('moderator/post/create',array(
+            'tags'=>Tag::all(),
+        ));
     }
 
     /**
@@ -36,7 +39,7 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        $data=$request->validated();
+        $data=$request->all();
         try{
             (new PostService())->createPost($data,Auth::user());
             return back()->with([
@@ -57,7 +60,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('moderator/post/show',array(
-            'post'=>$post
+            'post'=>$post->with('Tags:id'),
+            'tags'=>Tag::all(),
         ));
     }
 

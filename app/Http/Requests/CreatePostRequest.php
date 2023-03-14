@@ -24,7 +24,7 @@ class CreatePostRequest extends FormRequest
         return [
             'title'=>'required|string|max:255',
             'content'=>'required|string|max:512',
-            'thumbnail'=>'required|file|image',
+            'thumbnail'=>'required|file',
             'tags'=>'required',
             'tags.*'=>'exists:tags,name',
         ];

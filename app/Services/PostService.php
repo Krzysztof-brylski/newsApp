@@ -15,16 +15,16 @@ class PostService
      */
     public function createPost(array $data,User $author):void
     {
-
-       $post=Post::create([
+        //dd($data);
+       $post= new Post([
             'title'=>$data['title'],
             'content'=>$data['content'],
             'thumbnail'=>$data['thumbnail'],
        ]);
 
        $post->Author()->associate($author);
-       $post->Tags()->attach($data['tags']);
-
+       $post->Tags()->attach(array_keys($data['tags']));
+       $post->save();
     }
 
     /**

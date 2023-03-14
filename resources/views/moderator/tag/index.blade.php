@@ -1,3 +1,4 @@
-<x-app-layout>
+@extends('layouts.app')
 
-</x-app-layout>
+@section('content')
+@endsection

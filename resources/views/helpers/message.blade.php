@@ -1,3 +1,7 @@
+
+{{
+    dump(session('message'))
+}}
 @if(session('message'))
     <div class="row">
         <div class="col-12">
