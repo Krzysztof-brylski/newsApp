@@ -21,14 +21,6 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('moderator/tag/create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(CreateTagRequest $request)
@@ -47,16 +39,6 @@ class TagController extends Controller
 
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tag $tag)
-    {
-        return view('moderator/tag/update',array(
-            'tag'=>$tag
-        ));
-    }
 
     /**
      * Update the specified resource in storage.

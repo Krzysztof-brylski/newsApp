@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
@@ -19,9 +20,8 @@ class PostService
        $post= new Post([
             'title'=>$data['title'],
             'content'=>$data['content'],
-            'thumbnail'=>$data['thumbnail'],
+            'thumbnail'=>Storage::put('thumbnails',$data['thumbnail'])
        ]);
-
        $post->Author()->associate($author);
        $post->save();
        $post->Tags()->attach($data['tags']);
@@ -39,9 +39,13 @@ class PostService
 
         array_key_exists('title',$data) ? $post->title = $data['title']:null;
         array_key_exists('content',$data) ? $post->content =$data['content']:null;
-        array_key_exists('thumbnail',$data) ? $post->thumbnail =$data['thumbnail']:null;
+
         array_key_exists('tags',$data) ? $post->Tags()->sync($data['tags']):null;
 
+        if(array_key_exists('thumbnail',$data)){
+            Storage::delete( $post->thumbnail);
+            $post->thumbnail = Storage::put('/thumbnails',$data['thumbnail']);
+        }
 
         $post->save();
 
@@ -54,6 +58,7 @@ class PostService
     public function deletePost(Post $post):void
     {
         $post->Tags()->delete();
+        Storage::delete( $post->thumbnail);
         $post->delete();
     }
 

@@ -6,4 +6,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::resource('post', PostController::class)->except('show');
-Route::resource('tag', TagController::class)->except('show');
+Route::resource('tag', TagController::class)->except(['show','create','update']);

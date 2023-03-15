@@ -22,7 +22,7 @@
                         <td>{{$post->created_at}}</td>
                         <td>{{$post->title}}</td>
                         <td>{{$post->tags->implode('name',' ')}}</td>
-                        <td>{{$post->thumbnail}}</td>
+                        <td><img src="{{asset('storage/'.$post->thumbnail)}}" width="200" height="200 "></td>
                         <td>{{$post->views}}</td>
                         <td>0</td>
                         <td>
