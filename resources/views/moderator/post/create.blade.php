@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="d-flex p-5 justify-content-center align-items-center">
-        <form id="createPost" name="createPost" method="POST" action="{{route('moderator.post.store')}}" class="w-100 p-4 d-flex flex-column justify-content-center align-items-center">
+        <form id="createPost" name="createPost" method="POST" action="{{route('moderator.post.store')}}" enctype="multipart/form-data" class="w-100 p-4 d-flex flex-column justify-content-center align-items-center">
             @csrf
             <div class="row mb-8 m-3 w-75" >
                 <label for="Title" class="col-md-4 col-form-label text-md-end">Title:</label>
@@ -54,9 +53,15 @@
                     @foreach($tags as $tag)
                         <div class="col-md-3 d-flex justify-content-center">
                             <label for="{{$tag->name}}" class="col-md-4 px-2 col-form-label text-md-end">{{$tag->name}}</label>
-                            <input type="checkbox" id="{{$tag->name}}" name="tags[]" form="createPost" >
+                            <input type="checkbox" id="{{$tag->name}}" value="{{$tag->id}}" name="tags[]" form="createPost" >
                         </div>
                     @endforeach
+
+                    @error('tags')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
 

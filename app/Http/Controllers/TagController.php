@@ -62,7 +62,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        return view('moderator/tag/edit',array(
+        return view('moderator/tag/update',array(
             'tag'=>$tag
         ));
     }

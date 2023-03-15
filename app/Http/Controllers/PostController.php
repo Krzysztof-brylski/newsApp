@@ -39,7 +39,7 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        $data=$request->all();
+        $data=$request->validated();
         try{
             (new PostService())->createPost($data,Auth::user());
             return back()->with([
@@ -60,8 +60,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('moderator/post/show',array(
-            'post'=>$post->with('Tags:id'),
-            'tags'=>Tag::all(),
+            'post'=>$post->with('Tags')->get(),
         ));
     }
 
@@ -70,8 +69,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('moderator/post/edit',array(
-            'post'=>$post
+        return view('moderator/post/update',array(
+            'post'=>$post,
+            'tags'=>Tag::all()
         ));
     }
 

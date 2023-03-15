@@ -26,7 +26,7 @@ class CreatePostRequest extends FormRequest
             'content'=>'required|string|max:512',
             'thumbnail'=>'required|file',
             'tags'=>'required',
-            'tags.*'=>'exists:tags,name',
+            'tags.*'=>'exists:tags,id',
         ];
     }
 }
