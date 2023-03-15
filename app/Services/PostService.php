@@ -22,9 +22,9 @@ class PostService
             'thumbnail'=>$data['thumbnail'],
        ]);
 
-      $post->Author()->associate($author);
-      $post->save();
-      $post->Tags()->attach($data['tags']);
+       $post->Author()->associate($author);
+       $post->save();
+       $post->Tags()->attach($data['tags']);
 
     }
 
@@ -37,10 +37,10 @@ class PostService
     public function updatePost(array $data,Post $post):void
     {
 
-        array_key_exists('title',$data) ? $post->title =$data['title']:null;
+        array_key_exists('title',$data) ? $post->title = $data['title']:null;
         array_key_exists('content',$data) ? $post->content =$data['content']:null;
         array_key_exists('thumbnail',$data) ? $post->thumbnail =$data['thumbnail']:null;
-        array_key_exists('tags',$data) ? $post->Tags()->sync($data['tags'],false):null;
+        array_key_exists('tags',$data) ? $post->Tags()->sync($data['tags']):null;
 
 
         $post->save();

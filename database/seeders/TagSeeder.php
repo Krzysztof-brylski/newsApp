@@ -26,6 +26,8 @@ class TagSeeder extends Seeder
         Tag::firstOrCreate([
             'name'=>'Business'
         ]);
-
+        Tag::firstOrCreate([
+            'name'=>'Other'
+        ]);
     }
 }

@@ -25,8 +25,7 @@ class UpdatePostRequest extends FormRequest
             'title'=>'nullable|string|max:255',
             'content'=>'nullable|string|max:512',
             'thumbnail'=>'nullable|file|image',
-            'tags'=>'nullable',
-            'tags.*'=>'exists:tags,name',
+            'tags.*'=>'exists:tags,id',
         ];
     }
 }

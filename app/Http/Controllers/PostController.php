@@ -14,13 +14,14 @@ use Illuminate\View\View;
 
 class PostController extends Controller
 {
+    //todo register observer for sending email notification to newsletter subscribers, and push action to logs
     /**
-     * Display a listing of resource.
+     * Display a listing of created by currently logged in moderator.
      */
     public function index()
     {
         return View('moderator/post/index',array(
-            'posts'=>Post::paginate(15),
+            'posts'=>Auth::user()->Posts()->with(['Tags:name'])->paginate(10),
         ));
     }
 
@@ -55,16 +56,6 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        return view('moderator/post/show',array(
-            'post'=>$post->with('Tags')->get(),
-        ));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Post $post)
@@ -81,6 +72,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $data=$request->validated();
+
         try{
             (new PostService())->updatePost($data,$post);
             return back()->with([
@@ -89,7 +81,7 @@ class PostController extends Controller
         }catch (\Exception $exception){
             return back()->with([
                 'message'=>$exception->getMessage()
-            ])->with(['error'=>false]);
+            ])->with(['error'=>true]);
         }
     }
 

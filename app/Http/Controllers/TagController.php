@@ -47,15 +47,6 @@ class TagController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tag $tag)
-    {
-        return view('moderator/tag/show',array(
-            'tag'=>$tag
-        ));
-    }
 
     /**
      * Show the form for editing the specified resource.
