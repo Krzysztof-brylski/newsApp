@@ -6,6 +6,7 @@ use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Services\CommentService;
 use App\Services\PostService;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class PostController extends Controller
     public function index()
     {
         return View('moderator/post/index',array(
-            'posts'=>Auth::user()->Posts()->with(['Tags:name'])->paginate(10),
+            'posts'=>Auth::user()->Posts()->with(['Tags:name'])->withCount('Comments')->paginate(10),
         ));
     }
 
@@ -101,4 +102,15 @@ class PostController extends Controller
             ])->with(['error'=>true]);
         }
     }
+
+    public function comment(Post $post,Request $request){
+        $data= $request->validate(['content'=>'string|required']);
+
+        (new CommentService())->comment($data,Auth::user(),$post);
+
+        return Response()->json('commented',201);
+
+    }
+
+
 }
