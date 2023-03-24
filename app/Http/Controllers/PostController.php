@@ -106,12 +106,22 @@ class PostController extends Controller
     public function comment(Post $post,Request $request){
         $data= $request->validate(['content'=>'string|required']);
 
-        (new CommentService())->comment($data,Auth::user(),$post);
+        $post->comment(Auth::user(),$data['content']);
         return back()->with([
             'message'=>"commented!"
         ])->with(['error'=>false]);
 
     }
 
+    public function like(Post $post){
+        if(!$post->like(Auth::user())){
+            return back()->with([
+                'message'=>"Like canceled!"
+            ])->with(['error'=>false]);
+        }
 
+        return back()->with([
+            'message'=>"Liked <3"
+        ])->with(['error'=>false]);
+    }
 }

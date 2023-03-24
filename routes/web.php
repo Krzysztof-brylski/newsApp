@@ -26,7 +26,8 @@ Route::get('/post/{post}', [HomeController::class, 'watchPost'])->name('post.sho
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/post/comment/{post}',[PostController::class,'comment'])->name('post.comment');
-    Route::apiResource('comment', CommentController::class)->except(['show','index','create']);
+    Route::post('/post/like/{post}',[PostController::class,'like'])->name('post.like');
+//    Route::apiResource('comment', CommentController::class)->except(['show','index','create']);
 
 
 });

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PostService
@@ -61,6 +62,7 @@ class PostService
         Storage::delete( $post->thumbnail);
         $post->delete();
     }
+
 
 
 }

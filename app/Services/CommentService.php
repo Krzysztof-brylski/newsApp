@@ -17,9 +17,9 @@ class CommentService
     {
         $comment->delete();
     }
-    public function comment(array $data,User $commenter, $resource):void
+    public function comment(string $content,User $commenter, $resource):void
     {
-        $comment = new Comment(['content'=>$data['content']]);
+        $comment = new Comment(['content'=>$content]);
         $comment->Author()->associate($commenter);
 
         $resource->Comments()->save($comment);
