@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
 
@@ -28,14 +27,17 @@
         </div>
         <div>
             <h3 class="my-4">Comments:</h3>
-            @auth
-            <div>
-                <form action="{{route('post.comment',['post'=>$post])}}" method="post" class="justify-content-center d-flex">
-                    <input type="text" class="form-control w-75 mx-2" required placeholder="Write comment...">
-                    <button type="submit" class="btn btn-primary" >Send</button>
+
+                <form action="{{route('post.comment',['post'=>$post])}}" method="post"  >
+                    @csrf
+                    <div class="d-flex">
+                        <form action="{{route('post.comment',['post'=>$post])}}" method="post" class="justify-content-center d-flex">
+                            <input type="text" name="content" class="form-control w-75 mx-2" required placeholder="Write comment...">
+                            <button type="submit" class="btn btn-primary" @guest disabled @endguest>Send</button>
+                        </form>
+                    </div>
                 </form>
-            </div>
-            @endauth
+
             <div>
                 @foreach($post->comments as $comment)
                     <div class="d-flex flex-column my-5">

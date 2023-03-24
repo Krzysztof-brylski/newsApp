@@ -19,8 +19,9 @@ class CommentService
     }
     public function comment(array $data,User $commenter, $resource):void
     {
-        $comment = new Comment(['content'=>$data]);
+        $comment = new Comment(['content'=>$data['content']]);
         $comment->Author()->associate($commenter);
-        $resource->Comment()->save($comment);
+
+        $resource->Comments()->save($comment);
     }
 }

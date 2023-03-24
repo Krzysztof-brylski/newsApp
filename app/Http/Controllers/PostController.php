@@ -107,8 +107,9 @@ class PostController extends Controller
         $data= $request->validate(['content'=>'string|required']);
 
         (new CommentService())->comment($data,Auth::user(),$post);
-
-        return Response()->json('commented',201);
+        return back()->with([
+            'message'=>"commented!"
+        ])->with(['error'=>false]);
 
     }
 

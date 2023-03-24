@@ -14,7 +14,7 @@ class Post extends Model
         'thumbnail'
     ];
 
-    protected $with=['Author:name','Tags:name','Comments'];
+    //protected $with=['Author:name','Tags:name','Comments'];
     public function Author(){
         return $this->belongsTo(User::class);
     }

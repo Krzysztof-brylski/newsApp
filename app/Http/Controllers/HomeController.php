@@ -22,7 +22,10 @@ class HomeController extends Controller
 
     public function watchPost(Post $post){
         $post->increment('views');
-        return view('guest/post',['post'=>$post]);
+
+        return view('guest/post',[
+            'post'=>$post
+        ]);
     }
 
 
