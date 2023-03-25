@@ -35,9 +35,10 @@ class SendLiveRelationMessage implements ShouldBroadcastNow
 
     public function broadcastWith(){
         return array(
-            'liveTitle'=>$this->message->relation_title,
+            'relationTitle'=>$this->message->relation_title,
             'title'=>$this->message->title,
             'content'=>$this->message->content,
+            'date'=>$this->message->created_at->format('Y-m-d H:i:s'),
         );
     }
 
@@ -50,7 +51,7 @@ class SendLiveRelationMessage implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new Channel("App.LiveRelation.1"),
+            new Channel("App.LiveRelation.{$this->liveRelationId}"),
         ];
     }
 }

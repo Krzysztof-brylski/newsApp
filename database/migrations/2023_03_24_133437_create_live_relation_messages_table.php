@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('live_relation_messages', function (Blueprint $table) {
             $table->id();
-            $table->string('relation_title');
+            $table->string('relation_title',200);
             $table->string('title',200);
-            $table->string('content');
-            $table->foreignId('prev_message')->constrained('live_relation_messages');
+            $table->string('content',500);
+            $table->foreignId('prev_message')->nullable()->constrained('live_relation_messages');
             $table->timestamps();
         });
     }

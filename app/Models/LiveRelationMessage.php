@@ -16,10 +16,13 @@ class LiveRelationMessage extends Model
         'prev_message',
     ];
 
-    public function LiveRelation(){
+    public function LiveRelations(){
         return $this->belongsTo(LiveRelationMessage::class,'prev_message');
     }
 
+    public function LiveRelation(){
+        return $this->hasOne(LiveRelationMessage::class,'prev_message');
+    }
 
 
 }

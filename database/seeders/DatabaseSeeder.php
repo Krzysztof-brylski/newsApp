@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\LiveRelationMessage;
+use App\Services\LiveRelationService;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+       for($i=0;$i<20;$i++){
+           (new LiveRelationService())->postMessage([
+               'title'=>"test_{$i}",
+               'relation_title'=>'test',
+               'content'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porttitor sed ipsum vitae aliquam. Vestibulum tincidunt posuere augue in blandit. Donec suscipit ultrices odio, molestie egestas sem lacinia sit amet.',
+           ],LiveRelationMessage::where('id',6)->first());
+       }
     }
 }
