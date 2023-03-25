@@ -1,9 +1,11 @@
 <?php
 
+use App\Events\SendLiveRelationMessage;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Models\LiveRelationMessage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +20,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('landingPage');
+
+    $relation=new LiveRelationMessage([
+        'title'=>'test',
+        'relation_title'=>'test',
+        'content'=>'test',
+        'prev_message'=>1,
+    ]);
+    event(new SendLiveRelationMessage($relation));
+    //return view('landingPage');
 });
 Auth::routes();
 Route::get('/post/{post}', [HomeController::class, 'watchPost'])->name('post.show');
+
+
+Route::get('/test/{relationMessage:prev_message}',function (LiveRelationMessage $relationMessage){
+    return view('guest/live/read',['id'=>$relationMessage->prev_message]);
+});
 
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
