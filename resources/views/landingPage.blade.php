@@ -4,6 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-9">
+                <h3>Posts: </h3>
                 <div class="row">
                     @foreach($posts as $post)
                         @include('guest/post/postThumbnail',['post'=>$post])
@@ -11,7 +12,7 @@
                 </div>
             </div>
             <div class="col-xl-3">
-                <h3>Live relations</h3>
+                <h3>Live relations: </h3>
                 <ul>
                     @foreach($lives as $live)
                         <li><a href="{{route('relation.read',['relationMessage'=>$live['id']])}}">{{$live['title']}}</a></li>

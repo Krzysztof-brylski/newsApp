@@ -20,5 +20,8 @@ class Likes extends Model
         return $this->morphTo(Likes::class);
     }
 
+    public function Logs(){
+        return  $this->morphTo(Logs::class,'logable');
+    }
 
 }

@@ -16,4 +16,8 @@ class Tag extends Model
     public function Posts(){
         return $this->belongsToMany(Post::class,'posts_tags');
     }
+
+    public function Logs(){
+        return  $this->morphTo(Logs::class,'logable');
+    }
 }

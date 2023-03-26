@@ -20,5 +20,8 @@ class Comment extends Model
         return $this->morphTo(Comment::class);
     }
 
+    public function Logs(){
+        return  $this->morphTo(Logs::class,'logable');
+    }
 
 }

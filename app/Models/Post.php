@@ -18,13 +18,19 @@ class Post extends Model
 
     protected $with=['Author:name','Tags:name','Comments'];
     protected $withCount=['Likes'];
+    protected $observables=['like','comment'];
+
+
 
     //for future model observer this action
     public function like(User $user):bool
     {
+        $this->fireModelEvent('like', false);
         return (new LikeService())->like($user,$this);
+
     }
     public function comment(User $user, string $content){
+        $this->fireModelEvent('comment', false);
         (new CommentService())->comment($content,$user,$this);
     }
 
@@ -43,6 +49,9 @@ class Post extends Model
         return $this->morphMany(Likes::class,'likeable');
     }
 
+    public function Logs(){
+        return  $this->morphTo(Logs::class,'logable');
+    }
 
 
 }
