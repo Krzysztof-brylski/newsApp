@@ -20,22 +20,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-
-    return view('landingPage');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');;
 Auth::routes();
 Route::get('/post/{post}', [HomeController::class, 'watchPost'])->name('post.show');
 
 Route::get('/live/relation/{message:prev_message}',[LiveRelationController::class,'index'])->name('relations.index');
 
 
-Route::get('/test/{relationMessage:prev_message}',function (LiveRelationMessage $relationMessage){
+Route::get('/relation/{relationMessage:prev_message}',function (LiveRelationMessage $relationMessage){
     return view('guest/live/read',['id'=>$relationMessage->prev_message]);
-});
+})->name('relation.read');
 
 Route::middleware(['auth'])->group(function (){
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/post/comment/{post}',[PostController::class,'comment'])->name('post.comment');
     Route::post('/post/like/{post}',[PostController::class,'like'])->name('post.like');
 //    Route::apiResource('comment', CommentController::class)->except(['show','index','create']);

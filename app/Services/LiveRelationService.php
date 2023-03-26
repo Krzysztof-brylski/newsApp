@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\SendLiveRelationMessage;
 use App\Models\LiveRelationMessage;
+use Illuminate\Support\Facades\Cache;
 
 class LiveRelationService
 {
@@ -15,7 +16,16 @@ class LiveRelationService
             'content'=>$data['content'],
         ]);
         $message->LiveRelation()->save($message);
-
+        $lives=[];
+        if(Cache::has('live_relations')){
+            $lives=Cache::get('live_relations');
+            Cache::forget('live_relations');
+        }
+        $lives[]=[
+            'title'=>$data['title'],
+            'id'=>$message->id,
+        ];
+        Cache::put('live_relations',$lives);
         event(new SendLiveRelationMessage($message));
     }
 

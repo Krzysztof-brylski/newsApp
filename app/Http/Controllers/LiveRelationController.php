@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Cache;
 
 class LiveRelationController extends Controller
 {
+
     /**
      * @return AnonymousResourceCollection
      */

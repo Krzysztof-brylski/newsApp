@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
                'title'=>"test_{$i}",
                'relation_title'=>'test',
                'content'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porttitor sed ipsum vitae aliquam. Vestibulum tincidunt posuere augue in blandit. Donec suscipit ultrices odio, molestie egestas sem lacinia sit amet.',
-           ],LiveRelationMessage::where('id',6)->first());
+           ],LiveRelationMessage::where('id',53)->first());
        }
     }
 }
