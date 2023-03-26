@@ -54,4 +54,7 @@ class SendLiveRelationMessage implements ShouldBroadcastNow
             new Channel("App.LiveRelation.{$this->liveRelationId}"),
         ];
     }
+    public function getLiveRelationId(){
+        return $this->liveRelationId;
+    }
 }

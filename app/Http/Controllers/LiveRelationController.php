@@ -8,10 +8,9 @@ use App\Http\Requests\UpdateRelationRequest;
 use App\Http\Resources\LiveMessageResource;
 use App\Models\LiveRelationMessage;
 use App\Services\LiveRelationService;
-use http\Env\Response;
-use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
+
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Cache;
 
 class LiveRelationController extends Controller
 {
@@ -20,9 +19,13 @@ class LiveRelationController extends Controller
      */
     public function index(LiveRelationMessage $message): AnonymousResourceCollection
     {
-        $messages= LiveRelationMessage::where('prev_message',$message->prev_message)->orderBy('id','asc');
+        if(!Cache::has("messages_{$message->prev_message}")){
+            Cache::put("messages_{$message->prev_message}",
+                LiveRelationMessage::where('prev_message',$message->prev_message)->get(),(60*60*24));
+        }
+
         return LiveMessageResource::collection(
-            $messages->with(['LiveRelations'])->get()
+            Cache::get("messages_{$message->prev_message}")
         );
     }
 
