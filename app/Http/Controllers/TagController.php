@@ -15,8 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        return View('moderator/post/index',array(
-            'posts'=>Tag::paginate(15),
+        return View('moderator/tag/index',array(
+            'tags'=>Tag::withCount(['Posts'])->paginate(15),
         ));
     }
 
@@ -38,12 +38,17 @@ class TagController extends Controller
         }
 
     }
-
+    public function create(){
+        return view('moderator/tag/create');
+    }
+    public function edit(Tag $tag){
+        return view('moderator/tag/edit',['tag'=>$tag]);
+    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTagRequest $request, Tag $tag)
+    public function update(CreateTagRequest $request, Tag $tag)
     {
         $data=$request->validated();
         try{

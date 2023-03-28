@@ -71,4 +71,9 @@ class LiveRelationController extends Controller
     public function edit(LiveRelationMessage $message){
         return view('moderator/live/edit',['message'=>$message]);
     }
+
+    public function list(){
+        $lives = Cache::get('live_relations');
+        return view('moderator/live/index',['relations'=>$lives]);
+    }
 }

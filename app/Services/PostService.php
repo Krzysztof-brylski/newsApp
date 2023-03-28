@@ -21,7 +21,7 @@ class PostService
        $post= new Post([
             'title'=>$data['title'],
             'content'=>$data['content'],
-            'thumbnail'=>Storage::put('thumbnails',$data['thumbnail'])
+            'thumbnail'=>Storage::put('public/thumbnails',$data['thumbnail'])
        ]);
        $post->Author()->associate($author);
        $post->save();

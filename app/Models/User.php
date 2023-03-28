@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UsersRolesEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,5 +49,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class,'author_id');
     }
 
+    public function isAdmin(){
+        return $this->role == UsersRolesEnum::ADMIN->value;
+    }
+    public function isModerator(){
+        return( $this->isAdmin() or $this->role == UsersRolesEnum::MODERATOR->value );
+    }
 
 }

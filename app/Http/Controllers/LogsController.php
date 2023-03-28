@@ -10,8 +10,8 @@ class LogsController extends Controller
 {
 
     public function index(){
-        $logs=Logs::paginate(15);
-//        return view('admin/log/index',['logs'=>$logs]);
+        $logs=Logs::with(['actionMaker','logable'])->paginate(15);
+        return view('admin/log/index',['logs'=>$logs]);
     }
 
 

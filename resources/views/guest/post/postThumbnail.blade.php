@@ -1,6 +1,6 @@
-<div class="col-md-4">
+<div class="col-md-4  my-2">
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{asset('storage/'.$post->thumbnail)}}" alt="Card image cap">
+        <img class="card-img-top" src="{{asset('storage/'.$post->thumbnail)}}" width="300px" height="150px" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">{{$post->title}}</h5>
             <p class="card-text">{{substr($post->content,0,60)}}...</p>

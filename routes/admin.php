@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\LogsController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/',function (){
-    dd('admin');
-});
+Route::get('/',[LogsController::class,'index'])->name('log.index');

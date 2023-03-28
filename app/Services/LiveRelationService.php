@@ -25,7 +25,7 @@ class LiveRelationService
             'title'=>$data['title'],
             'id'=>$message->id,
         ];
-        Cache::put('live_relations',$lives);
+        Cache::forever('live_relations',$lives);
         event(new SendLiveRelationMessage($message));
     }
 

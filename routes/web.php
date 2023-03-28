@@ -22,10 +22,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');;
 Auth::routes();
+
+Route::get('/post/list/{tag:name?}',[HomeController::class,'postList'])->name('post.list');
 Route::get('/post/{post}', [HomeController::class, 'watchPost'])->name('post.show');
 
 Route::get('/live/relation/{message:prev_message}',[LiveRelationController::class,'index'])->name('relations.index');
-
 
 Route::get('/relation/{relationMessage:prev_message}',function (LiveRelationMessage $relationMessage){
     return view('guest/live/read',['id'=>$relationMessage->prev_message]);

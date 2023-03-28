@@ -29,8 +29,24 @@ class HomeController extends Controller
     public function watchPost(Post $post){
         $post->increment('views');
 
-        return view('guest/post',[
+        return view('guest/post/post',[
             'post'=>$post
+        ]);
+    }
+
+    public function postList(Tag $tag){
+
+        if(!$tag->exists){
+            return view('guest/post/postList',[
+                'posts'=>$posts=Post::paginate(10),
+                'tag'=>null
+            ]);
+        }
+        $posts = $tag->Posts()->orderBy('created_at','desc')->paginate(10);
+        return view('guest/post/postList',[
+            'posts'=>$posts,
+            'tag'=>$tag->name,
+
         ]);
     }
 
